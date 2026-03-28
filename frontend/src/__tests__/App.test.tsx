@@ -8,8 +8,9 @@ describe('App', () => {
     expect(screen.getByText('Talk')).toBeInTheDocument();
   });
 
-  it('shows placeholder message', () => {
+  it('renders the log input area', () => {
     render(<App />);
-    expect(screen.getByText(/paste your logs/i)).toBeInTheDocument();
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /analyze logs/i })).toBeInTheDocument();
   });
 });
