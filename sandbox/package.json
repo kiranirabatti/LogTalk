@@ -1,0 +1,14 @@
+{
+  "name": "logtalk-sandbox",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Demo error generator for LogTalk — produces fake AcmeCorp errors",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
