@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { LogAnalysis } from './types';
-import { analyzePaste } from './api/logtalk';
+import { analyzePaste, analyzeUpload, triggerDemo } from './api/logtalk';
 import LogInput from './components/LogInput';
 import LogViewer from './components/LogViewer';
 
@@ -22,6 +22,32 @@ const App = () => {
     }
   };
 
+  const handleUpload = async (file: File) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await analyzeUpload(file);
+      setAnalysis(result);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to analyze uploaded file');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleTriggerLive = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await triggerDemo();
+      setAnalysis(result);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to trigger live demo');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="border-b border-slate-200 bg-white px-6 py-4">
@@ -34,7 +60,12 @@ const App = () => {
       </header>
 
       <main className="mx-auto max-w-5xl space-y-8 px-6 py-10">
-        <LogInput onAnalyze={handleAnalyze} isLoading={isLoading} />
+        <LogInput
+          onAnalyze={handleAnalyze}
+          onUpload={handleUpload}
+          onTriggerLive={handleTriggerLive}
+          isLoading={isLoading}
+        />
 
         {/* Loading skeleton */}
         {isLoading && (

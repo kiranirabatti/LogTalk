@@ -62,6 +62,17 @@ class HealthResponse(BaseModel):
     version: str = "0.1.0"
 
 
+class WebhookPayload(BaseModel):
+    source: str = "webhook"
+    logs: str = Field(..., min_length=1, description="Log text from external source")
+    metadata: dict[str, str] = Field(default_factory=dict)
+
+
+class DemoTriggerResponse(BaseModel):
+    status: str
+    message: str
+
+
 class ErrorResponse(BaseModel):
     error: str
     detail: str | None = None

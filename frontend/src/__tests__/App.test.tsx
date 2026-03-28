@@ -8,9 +8,15 @@ describe('App', () => {
     expect(screen.getByText('Talk')).toBeInTheDocument();
   });
 
-  it('renders the log input area', () => {
+  it('renders the tab bar', () => {
+    render(<App />);
+    expect(screen.getByRole('button', { name: 'Paste' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Upload' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Live' })).toBeInTheDocument();
+  });
+
+  it('renders the log input textarea', () => {
     render(<App />);
     expect(screen.getByRole('textbox')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /analyze logs/i })).toBeInTheDocument();
   });
 });
