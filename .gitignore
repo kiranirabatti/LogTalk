@@ -31,7 +31,8 @@ venv/
 .venv/
 env/
 
-# Test / Coverage
+# Linter / Test / Coverage
+.ruff_cache/
 .coverage
 htmlcov/
 .pytest_cache/
