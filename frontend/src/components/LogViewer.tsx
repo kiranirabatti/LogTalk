@@ -54,6 +54,19 @@ const LogViewer = ({ analysis }: LogViewerProps) => {
           <CeoView analysis={analysis} />
         )}
       </div>
+
+      {/* Token usage stats */}
+      {analysis.usage && analysis.usage.total_tokens > 0 && (
+        <div className="flex items-center justify-center gap-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2 text-xs text-slate-500">
+          <span>Model: <span className="font-medium text-slate-700">{analysis.usage.model}</span></span>
+          <span className="text-slate-300">|</span>
+          <span>Input: <span className="font-medium text-slate-700">{analysis.usage.input_tokens.toLocaleString()}</span> tokens</span>
+          <span className="text-slate-300">|</span>
+          <span>Output: <span className="font-medium text-slate-700">{analysis.usage.output_tokens.toLocaleString()}</span> tokens</span>
+          <span className="text-slate-300">|</span>
+          <span>Total: <span className="font-medium text-slate-700">{analysis.usage.total_tokens.toLocaleString()}</span> tokens</span>
+        </div>
+      )}
     </div>
   );
 };

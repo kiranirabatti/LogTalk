@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 
 import anthropic
 
-from models import InternalLogSchema, LogAnalysis, Severity
+from models import InternalLogSchema, LogAnalysis, Severity, UsageStats
 
 # Canonical system prompt from ai-layer.md — do not change without discussion
 SYSTEM_PROMPT = """
@@ -63,7 +63,9 @@ def _strip_markdown_fences(text: str) -> str:
     return text.strip()
 
 
-def _parse_ai_response(raw_text: str, log_line_count: int) -> LogAnalysis:
+def _parse_ai_response(
+    raw_text: str, log_line_count: int, usage: UsageStats | None = None,
+) -> LogAnalysis:
     """Parse and validate Claude's JSON response into a LogAnalysis model."""
     cleaned = _strip_markdown_fences(raw_text)
     data = json.loads(cleaned)
@@ -93,6 +95,7 @@ def _parse_ai_response(raw_text: str, log_line_count: int) -> LogAnalysis:
         deployment_correlation=str(data.get("deployment_correlation", "none detected")),
         analyzed_at=datetime.now(timezone.utc).isoformat(),
         log_line_count=log_line_count,
+        usage=usage or UsageStats(),
     )
 
 
@@ -133,7 +136,13 @@ async def analyze_logs(parsed: InternalLogSchema) -> LogAnalysis:
                 messages=[{"role": "user", "content": log_text}],
             )
             raw_response = response.content[0].text
-            return _parse_ai_response(raw_response, parsed.line_count)
+            usage = UsageStats(
+                input_tokens=response.usage.input_tokens,
+                output_tokens=response.usage.output_tokens,
+                total_tokens=response.usage.input_tokens + response.usage.output_tokens,
+                model=MODEL,
+            )
+            return _parse_ai_response(raw_response, parsed.line_count, usage)
 
         except anthropic.RateLimitError:
             if attempt < MAX_RETRIES_ON_RATE_LIMIT:

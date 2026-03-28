@@ -36,6 +36,13 @@ class Severity(str, Enum):
     unknown = "unknown"
 
 
+class UsageStats(BaseModel):
+    input_tokens: int = 0
+    output_tokens: int = 0
+    total_tokens: int = 0
+    model: str = ""
+
+
 class LogAnalysis(BaseModel):
     severity: Severity
     affected_users: int
@@ -49,6 +56,7 @@ class LogAnalysis(BaseModel):
     deployment_correlation: str
     analyzed_at: str  # added by backend, not Claude
     log_line_count: int  # added by backend
+    usage: UsageStats = Field(default_factory=UsageStats)  # token usage tracking
 
 
 # ── Request / Response Models ────────────────────────────────────────

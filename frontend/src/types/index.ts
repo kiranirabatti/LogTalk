@@ -6,6 +6,13 @@ export type Severity = 'critical' | 'high' | 'medium' | 'low' | 'unknown';
 
 export type ViewMode = 'developer' | 'ceo';
 
+export interface UsageStats {
+  input_tokens: number;
+  output_tokens: number;
+  total_tokens: number;
+  model: string;
+}
+
 export interface LogAnalysis {
   severity: Severity;
   affected_users: number;
@@ -19,4 +26,5 @@ export interface LogAnalysis {
   deployment_correlation: string;
   analyzed_at: string;
   log_line_count: number;
+  usage: UsageStats;
 }

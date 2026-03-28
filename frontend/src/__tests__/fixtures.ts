@@ -13,4 +13,5 @@ export const mockAnalysis: LogAnalysis = {
   deployment_correlation: 'v2.3.1 deployed 30 minutes before incident started',
   analyzed_at: '2026-03-28T16:00:00Z',
   log_line_count: 142,
+  usage: { input_tokens: 580, output_tokens: 245, total_tokens: 825, model: 'claude-sonnet-4-6' },
 };

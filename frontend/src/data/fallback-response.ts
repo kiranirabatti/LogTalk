@@ -25,4 +25,5 @@ export const fallbackAnalysis: LogAnalysis = {
     'v2.3.1 deployed at 14:45 — 30 minutes before the first failure. No other deploys in the preceding 24 hours.',
   analyzed_at: new Date().toISOString(),
   log_line_count: 11,
+  usage: { input_tokens: 0, output_tokens: 0, total_tokens: 0, model: 'cached-fallback' },
 };
