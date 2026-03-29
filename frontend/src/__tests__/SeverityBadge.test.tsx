@@ -23,6 +23,6 @@ describe('SeverityBadge', () => {
   it('applies green styling for low severity', () => {
     render(<SeverityBadge severity="low" />);
     const badge = screen.getByText('low');
-    expect(badge.className).toContain('text-green-500');
+    expect(badge.className).toContain('text-emerald-600');
   });
 });

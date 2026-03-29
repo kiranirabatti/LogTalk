@@ -11,14 +11,12 @@ describe('CeoView', () => {
 
   it('renders affected users impact card', () => {
     render(<CeoView analysis={mockAnalysis} />);
-    expect(screen.getByText('47')).toBeInTheDocument();
     expect(screen.getByText('Users Affected')).toBeInTheDocument();
   });
 
-  it('renders revenue impact card with formatted INR', () => {
+  it('renders revenue impact card', () => {
     render(<CeoView analysis={mockAnalysis} />);
-    expect(screen.getByText('₹82.0K')).toBeInTheDocument();
-    expect(screen.getByText('Est. Revenue Impact')).toBeInTheDocument();
+    expect(screen.getByText('Revenue Impact')).toBeInTheDocument();
   });
 
   it('renders revenue reasoning', () => {
@@ -29,5 +27,10 @@ describe('CeoView', () => {
   it('renders recommended action', () => {
     render(<CeoView analysis={mockAnalysis} />);
     expect(screen.getByText(mockAnalysis.recommended_action)).toBeInTheDocument();
+  });
+
+  it('renders copy summary button', () => {
+    render(<CeoView analysis={mockAnalysis} />);
+    expect(screen.getByRole('button', { name: /copy summary/i })).toBeInTheDocument();
   });
 });

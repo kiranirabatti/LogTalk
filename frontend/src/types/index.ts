@@ -28,3 +28,13 @@ export interface LogAnalysis {
   log_line_count: number;
   usage: UsageStats;
 }
+
+/** Analysis with metadata for history tracking */
+export interface HistoryEntry {
+  id: string;
+  analysis: LogAnalysis;
+  source: 'paste' | 'upload' | 'live';
+  responseTimeMs: number;
+  timestamp: string;
+  label: string;
+}

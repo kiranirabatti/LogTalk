@@ -27,4 +27,14 @@ describe('LogViewer', () => {
     const devButton = screen.getByRole('button', { name: /developer view/i });
     expect(devButton.className).toContain('duration-300');
   });
+
+  it('displays response time when provided', () => {
+    render(<LogViewer analysis={mockAnalysis} responseTimeMs={3200} />);
+    expect(screen.getByText('3.2s')).toBeInTheDocument();
+  });
+
+  it('displays cost estimation', () => {
+    render(<LogViewer analysis={mockAnalysis} />);
+    expect(screen.getByText(/Cost:/)).toBeInTheDocument();
+  });
 });

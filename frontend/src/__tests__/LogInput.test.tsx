@@ -12,9 +12,9 @@ const defaultProps = {
 describe('LogInput', () => {
   it('renders tab bar with Paste, Upload, Live', () => {
     render(<LogInput {...defaultProps} />);
-    expect(screen.getByRole('button', { name: 'Paste' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Upload' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Live' })).toBeInTheDocument();
+    expect(screen.getByText('Paste')).toBeInTheDocument();
+    expect(screen.getByText('Upload')).toBeInTheDocument();
+    expect(screen.getByText('Live')).toBeInTheDocument();
   });
 
   it('defaults to paste tab with textarea', () => {
@@ -38,13 +38,13 @@ describe('LogInput', () => {
 
   it('shows upload zone when upload tab clicked', () => {
     render(<LogInput {...defaultProps} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Upload' }));
+    fireEvent.click(screen.getByText('Upload'));
     expect(screen.getByText(/click to upload/i)).toBeInTheDocument();
   });
 
   it('shows live trigger when live tab clicked', () => {
     render(<LogInput {...defaultProps} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Live' }));
+    fireEvent.click(screen.getByText('Live'));
     expect(screen.getByRole('button', { name: /trigger live error/i })).toBeInTheDocument();
   });
 

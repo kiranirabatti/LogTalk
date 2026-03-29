@@ -18,4 +18,9 @@ describe('ImpactCard', () => {
     render(<ImpactCard icon="👥" value={10} label="Test" />);
     expect(screen.getByText('👥')).toBeInTheDocument();
   });
+
+  it('renders sublabel when provided', () => {
+    render(<ImpactCard icon="👥" value={10} label="Test" sublabel="during outage" />);
+    expect(screen.getByText('during outage')).toBeInTheDocument();
+  });
 });
